@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abbasi TV - Live Sports & Entertainment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #030a18;
+            --bg-secondary: #0a1628;
+            --bg-card: rgba(15, 30, 55, 0.8);
+            --fg: #ffffff;
+            --fg-muted: #8fa3bf;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-glow: rgba(37, 99, 235, 0.4);
+            --border: rgba(59, 130, 246, 0.2);
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--fg);
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Animated background */
+        .bg-gradient-animated {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 30% at 50% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+            background-attachment: fixed;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+            top: 10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+            top: 60%;
+            right: -5%;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        /* Grid pattern */
+        .grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-light);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Card styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Phone mockup */
+        .phone-mockup {
+            background: linear-gradient(145deg, #1a2744 0%, #0d1a30 100%);
+            border: 3px solid #2a3a55;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255,255,255,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phone-mockup:hover {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.02);
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .stagger > * {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stagger.active > *:nth-child(1) { animation: fadeUp 0.6s 0.1s forwards; }
+        .stagger.active > *:nth-child(2) { animation: fadeUp 0.6s 0.2s forwards; }
+        .stagger.active > *:nth-child(3) { animation: fadeUp 0.6s 0.3s forwards; }
+        .stagger.active > *:nth-child(4) { animation: fadeUp 0.6s 0.4s forwards; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FAQ accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Modal/Downloads page */
+        .downloads-page {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            overflow-y: auto;
+        }
+
+        .downloads-page.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .downloads-page .content {
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.5s 0.2s ease;
+        }
+
+        .downloads-page.active .content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Android badge pulse */
+        .android-badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus states */
+        *:focus-visible {
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* Screenshot gallery */
+        .screenshot-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshot-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .screenshot-item {
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="bg-gradient-animated min-h-screen">
+    <!-- Background elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-pattern"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(3,10,24,0.8)] border-b border-[rgba(59,130,246,0.1)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3" aria-label="Abbasi TV Home">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-lg">
+                        <span class="font-display font-bold text-xl sm:text-2xl text-white">A</span>
+                    </div>
+                    <span class="font-display font-bold text-xl sm:text-2xl tracking-tight">ABBASI TV</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-[var(--fg-muted)] hover:text-white transition-colors">Features</a>
+                    
+                    <!-- Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="flex items-center gap-1 text-[var(--fg-muted)] hover:text-white transition-colors" aria-expanded="false">
+                            Categories
+                            <svg class="w-4 h-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-content absolute top-full left-0 mt-2 w-48 rounded-xl card p-2">
+                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Sports</a>
+                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Movies</a>
+                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">News</a>
+                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Kids</a>
+                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Islamic</a>
+                        </div>
+                    </div>
+
+                    <a href="#faq" class="text-[var(--fg-muted)] hover:text-white transition-colors">FAQ</a>
+                    <button onclick="openDownloadsPage()" class="btn-primary px-6 py-2.5 rounded-xl font-semibold text-white">
+                        Download
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-[var(--bg-secondary)] border-t border-[var(--border)]">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features" class="block py-2 text-[var(--fg-muted)] hover:text-white transition-colors">Features</a>
+                <a href="#categories" class="block py-2 text-[var(--fg-muted)] hover:text-white transition-colors">Categories</a>
+                <a href="#faq" class="block py-2 text-[var(--fg-muted)] hover:text-white transition-colors">FAQ</a>
+                <button onclick="openDownloadsPage()" class="w-full btn-primary px-6 py-3 rounded-xl font-semibold text-white mt-4">
+                    Download App
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="relative min-h-screen flex items-center pt-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <!-- Hero Content -->
+                    <div class="stagger text-center lg:text-left order-2 lg:order-1">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.3)] mb-6">
+                            <span class="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse"></span>
+                            <span class="text-[var(--success)] text-sm font-medium">Android Only</span>
+                        </div>
+                        
+                        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
+                            Live Sports &
+                            <span class="block bg-gradient-to-r from-[#3b82f6] to-[#60a5fa] bg-clip-text text-transparent">
+                                Entertainment
+                            </span>
+                        </h1>
+                        
+                        <p class="text-[var(--fg-muted)] text-lg sm:text-xl mb-8 max-w-xl mx-auto lg:mx-0">
+                            Stream live cricket, football, boxing, and 500+ channels. Your gateway to unlimited entertainment, all in one app.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button onclick="openDownloadsPage()" class="btn-primary px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                                Download Now
+                                <span class="text-sm opacity-75">v3.2.1</span>
+                            </button>
+                            
+                            <a href="#features" class="btn-secondary px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-2">
+                                Learn More
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-[var(--border)]">
+                            <div>
+                                <div class="font-display font-bold text-2xl sm:text-3xl text-white">500+</div>
+                                <div class="text-[var(--fg-muted)] text-sm">Channels</div>
+                            </div>
+                            <div>
+                                <div class="font-display font-bold text-2xl sm:text-3xl text-white">50K+</div>
+                                <div class="text-[var(--fg-muted)] text-sm">Downloads</div>
+                            </div>
+                            <div>
+                                <div class="font-display font-bold text-2xl sm:text-3xl text-white">4.8</div>
+                                <div class="text-[var(--fg-muted)] text-sm">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Phone Mockup -->
+                    <div class="order-1 lg:order-2 flex justify-center">
+                        <div class="relative">
+                            <!-- Glow effect -->
+                            <div class="absolute inset-0 bg-[var(--accent)] rounded-[3rem] blur-3xl opacity-20 scale-90"></div>
+                            
+                            <!-- Phone -->
+                            <div class="phone-mockup relative w-[280px] sm:w-[320px] rounded-[2.5rem] p-2 transform perspective-1000">
+                                <div class="bg-[#0a1628] rounded-[2rem] overflow-hidden">
+                                    <!-- Status bar -->
+                                    <div class="bg-[#030a18] px-4 py-2 flex justify-between items-center text-xs text-[var(--fg-muted)]">
+                                        <span>11:48 AM</span>
+                                        <div class="flex gap-1">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+                                        </div>
+                                    </div>
+                                    <!-- App screenshot -->
+                                    <img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="Abbasi TV App Interface" class="w-full h-auto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="relative py-20 sm:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                        Why Choose Abbasi TV?
+                    </h2>
+                    <p class="text-[var(--fg-muted)] text-lg max-w-2xl mx-auto">
+                        Experience premium streaming with features designed for the ultimate viewing experience.
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
+                    <!-- Feature 1 -->
+                    <div class="card rounded-2xl p-6 text-center">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-2">Live Streaming</h3>
+                        <p class="text-[var(--fg-muted)] text-sm">Watch live sports events in HD quality without buffering.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="card rounded-2xl p-6 text-center">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-2">500+ Channels</h3>
+                        <p class="text-[var(--fg-muted)] text-sm">Access to sports, movies, news, and entertainment channels.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="card rounded-2xl p-6 text-center">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-2">Fast & Light</h3>
+                        <p class="text-[var(--fg-muted)] text-sm">Optimized for smooth performance on all Android devices.</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="card rounded-2xl p-6 text-center">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-2">Free Forever</h3>
+                        <p class="text-[var(--fg-muted)] text-sm">No subscription fees. Completely free to use forever.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots Section -->
+        <section class="relative py-20 sm:py-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                        App Screenshots
+                    </h2>
+                    <p class="text-[var(--fg-muted)] text-lg">
+                        Take a look at our beautiful and intuitive interface
+                    </p>
+                </div>
+
+                <div class="screenshot-container reveal">
+                    <div class="screenshot-item">
+                        <div class="card rounded-2xl p-3 w-[240px] sm:w-[280px]">
+                            <img src="https://z-cdn-media.chatglm.cn/files/20d0fce4-a4a1-4bdf-b5ea-4b5e3fe81f8e.png?auth_key=1871669223-d3ffd574f6164652a227ac7eb078e985-0-d94610487396d8fac8d4305c94fcba8f" alt="Sports Categories" class="rounded-xl w-full h-auto">
+                            <p class="text-center text-sm text-[var(--fg-muted)] mt-3">Sports Channels</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="card rounded-2xl p-3 w-[240px] sm:w-[280px]">
+                            <img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="Live Events" class="rounded-xl w-full h-auto">
+                            <p class="text-center text-sm text-[var(--fg-muted)] mt-3">Live Events</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="card rounded-2xl p-3 w-[240px] sm:w-[280px]">
+                            <img src="https://z-cdn-media.chatglm.cn/files/df3ac9ab-9014-4134-9698-a3a8c900b469.png?auth_key=1871669223-dbd6b14147ec4d9988ef639d0f1d10dd-0-ab5254b419546a318a65721a1ee2c0cc" alt="Categories" class="rounded-xl w-full h-auto">
+                            <p class="text-center text-sm text-[var(--fg-muted)] mt-3">All Categories</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="relative py-20 sm:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                        Content Categories
+                    </h2>
+                    <p class="text-[var(--fg-muted)] text-lg max-w-2xl mx-auto">
+                        Explore a wide variety of channels and content across multiple categories
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 stagger">
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#9917;</div>
+                        <span class="font-medium">Sports</span>
+                    </div>
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#127916;</div>
+                        <span class="font-medium">Movies</span>
+                    </div>
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#128240;</div>
+                        <span class="font-medium">News</span>
+                    </div>
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#128118;</div>
+                        <span class="font-medium">Kids</span>
+                    </div>
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#128337;</div>
+                        <span class="font-medium">Islamic</span>
+                    </div>
+                    <div class="card rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                        <div class="text-3xl mb-2">&#127925;</div>
+                        <span class="font-medium">Music</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="relative py-20 sm:py-32">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                        Frequently Asked Questions
+                    </h2>
+                    <p class="text-[var(--fg-muted)] text-lg">
+                        Find answers to common questions about Abbasi TV
+                    </p>
+                </div>
+
+                <div class="card rounded-2xl overflow-hidden reveal">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item">
+                        <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this.parentElement)">
+                            <span class="font-semibold text-lg">Is Abbasi TV free to use?</span>
+                            <svg class="faq-icon w-5 h-5 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-[var(--fg-muted)] pb-6">
+                                Yes, Abbasi TV is completely free to use. There are no subscription fees or hidden charges. Download the app and start streaming immediately.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item">
+                        <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this.parentElement)">
+                            <span class="font-semibold text-lg">What devices are supported?</span>
+                            <svg class="faq-icon w-5 h-5 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-[var(--fg-muted)] pb-6">
+                                Abbasi TV is available exclusively for Android devices. We support Android version 5.0 (Lollipop) and above, including Android TV boxes and Fire TV sticks.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item">
+                        <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this.parentElement)">
+                            <span class="font-semibold text-lg">How do I install the app?</span>
+                            <svg class="faq-icon w-5 h-5 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-[var(--fg-muted)] pb-6">
+                                Download the APK file from our website, enable "Install from unknown sources" in your device settings, then open the downloaded file to install. The process takes less than a minute.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item">
+                        <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this.parentElement)">
+                            <span class="font-semibold text-lg">What sports channels are available?</span>
+                            <svg class="faq-icon w-5 h-5 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-[var(--fg-muted)] pb-6">
+                                We offer a wide range of sports channels including SonyLiv, TNT Sports, DAZN, FANCODE, ICC TV, and many more. Watch live cricket, football, boxing, and other sports events.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item">
+                        <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this.parentElement)">
+                            <span class="font-semibold text-lg">Is the app safe to use?</span>
+                            <svg class="faq-icon w-5 h-5 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6">
+                            <p class="text-[var(--fg-muted)] pb-6">
+                                Yes, Abbasi TV is completely safe. We don't collect personal data or require unnecessary permissions. The app is regularly updated for security and performance improvements.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download CTA Section -->
+        <section class="relative py-20 sm:py-32">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden reveal">
+                    <!-- Background glow -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-[rgba(37,99,235,0.2)] to-transparent"></div>
+                    
+                    <div class="relative">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(16,185,129,0.15)] border border-[rgba(16,185,129,0.3)] mb-6 android-badge">
+                            <svg class="w-5 h-5 text-[var(--success)]" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.523 2.427l1.562-1.562a.5.5 0 00-.707-.707L16.58 1.957a7.956 7.956 0 00-4.58-1.453c-1.68 0-3.25.518-4.58 1.453L5.623.158a.5.5 0 00-.707.707L6.478 2.427A7.948 7.948 0 004 8.5h16a7.948 7.948 0 00-2.477-6.073zM8.5 6a1 1 0 110-2 1 1 0 010 2zm7 0a1 1 0 110-2 1 1 0 010 2zM4 9.5v9A2.5 2.5 0 006.5 21h2v-5.5a.5.5 0 01.5-.5h6a.5.5 0 01.5.5V21h2a2.5 2.5 0 002.5-2.5v-9H4z"/>
+                            </svg>
+                            <span class="text-[var(--success)] text-sm font-semibold">Android Exclusive</span>
+                        </div>
+
+                        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                            Ready to Start Streaming?
+                        </h2>
+                        <p class="text-[var(--fg-muted)] text-lg mb-8 max-w-xl mx-auto">
+                            Download Abbasi TV now and unlock unlimited entertainment. Free forever, no registration required.
+                        </p>
+
+                        <button onclick="openDownloadsPage()" class="btn-primary px-10 py-5 rounded-2xl font-bold text-xl inline-flex items-center gap-3">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download for Android
+                        </button>
+
+                        <p class="text-[var(--fg-muted)] text-sm mt-4">
+                            Version 3.2.1 | APK Size: 12 MB | Android 5.0+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms Section -->
+        <section id="terms" class="relative py-20 sm:py-32">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl mb-4">
+                        Terms & Conditions
+                    </h2>
+                </div>
+
+                <div class="card rounded-2xl p-6 sm:p-8 reveal text-[var(--fg-muted)] space-y-4 text-sm leading-relaxed">
+                    <p><strong class="text-white">1. Acceptance of Terms</strong><br>
+                    By downloading and using Abbasi TV, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use the application.</p>
+
+                    <p><strong class="text-white">2. Use of Service</strong><br>
+                    Abbasi TV provides access to various streaming content. The service is intended for personal, non-commercial use only. You agree not to reproduce, duplicate, copy, sell, or exploit any portion of the service without express permission.</p>
+
+                    <p><strong class="text-white">3. Content Disclaimer</strong><br>
+                    Abbasi TV aggregates content from various third-party sources. We do not host any content ourselves and are not responsible for the accuracy, copyright compliance, legality, or any other aspect of the content streamed through the application.</p>
+
+                    <p><strong class="text-white">4. Privacy</strong><br>
+                    We respect your privacy. Abbasi TV does not collect personal information beyond what is necessary for the app to function. We do not sell or share user data with third parties.</p>
+
+                    <p><strong class="text-white">5. Limitation of Liability</strong><br>
+                    Abbasi TV is provided "as is" without warranties of any kind. We shall not be liable for any damages arising from the use or inability to use the application.</p>
+
+                    <p><strong class="text-white">6. Modifications</strong><br>
+                    We reserve the right to modify these terms at any time. Continued use of the application after changes constitutes acceptance of the new terms.</p>
+
+                    <p class="pt-4 border-t border-[var(--border)]">
+                        Last updated: January 2025
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-[var(--border)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+                            <span class="font-display font-bold text-xl text-white">A</span>
+                        </div>
+                        <span class="font-display font-bold text-xl">ABBASI TV</span>
+                    </div>
+                    <p class="text-[var(--fg-muted)] text-sm">
+                        Your gateway to unlimited entertainment. Stream live sports, movies, news, and more.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-[var(--fg-muted)]">
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#terms" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Categories</h4>
+                    <ul class="space-y-2 text-[var(--fg-muted)]">
+                        <li><a href="#" class="hover:text-white transition-colors">Sports</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Movies</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">News</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kids</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Download</h4>
+                    <button onclick="openDownloadsPage()" class="btn-primary px-6 py-3 rounded-xl font-medium text-sm w-full flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Get for Android
+                    </button>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-[var(--border)] text-center">
+                <p class="text-[var(--fg-muted)] text-sm mb-2">
+                    &copy; 2025 Abbasi TV. All rights reserved.
+                </p>
+                <p class="text-[var(--fg-muted)] text-sm">
+                    created with <span class="text-red-500">&#10084;</span> by WASI
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Downloads Page (Hidden by default) -->
+    <div id="downloadsPage" class="downloads-page">
+        <div class="bg-gradient-animated min-h-screen">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="grid-pattern"></div>
+
+            <div class="content relative z-10">
+                <!-- Downloads Header -->
+                <header class="sticky top-0 backdrop-blur-xl bg-[rgba(3,10,24,0.9)] border-b border-[var(--border)] z-20">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex items-center justify-between h-16 sm:h-20">
+                            <button onclick="closeDownloadsPage()" class="flex items-center gap-2 text-[var(--fg-muted)] hover:text-white transition-colors" aria-label="Go back">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+                                    <span class="font-display font-bold text-xl text-white">A</span>
+                                </div>
+                                <span class="font-display font-bold text-xl">ABBASI TV</span>
+                            </div>
+
+                            <div class="w-20"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Downloads Content -->
+                <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+                    <div class="text-center mb-12">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(16,185,129,0.15)] border border-[rgba(16,185,129,0.3)] mb-6">
+                            <svg class="w-5 h-5 text-[var(--success)]" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.523 2.427l1.562-1.562a.5.5 0 00-.707-.707L16.58 1.957a7.956 7.956 0 00-4.58-1.453c-1.68 0-3.25.518-4.58 1.453L5.623.158a.5.5 0 00-.707.707L6.478 2.427A7.948 7.948 0 004 8.5h16a7.948 7.948 0 00-2.477-6.073zM8.5 6a1 1 0 110-2 1 1 0 010 2zm7 0a1 1 0 110-2 1 1 0 010 2zM4 9.5v9A2.5 2.5 0 006.5 21h2v-5.5a.5.5 0 01.5-.5h6a.5.5 0 01.5.5V21h2a2.5 2.5 0 002.5-2.5v-9H4z"/>
+                            </svg>
+                            <span class="text-[var(--success)] text-sm font-semibold">Android Only</span>
+                        </div>
+
+                        <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
+                            Download Applications
+                        </h1>
+                        <p class="text-[var(--fg-muted)] text-lg max-w-2xl mx-auto">
+                            Choose your preferred version and start streaming. All apps are free and safe to use.
+                        </p>
+                    </div>
+
+                    <!-- Main App -->
+                    <div class="card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-[var(--success)] text-white text-xs font-bold px-4 py-1 rounded-bl-xl">
+                            RECOMMENDED
+                        </div>
+                        
+                        <div class="flex flex-col lg:flex-row items-center gap-8">
+                            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+                                <span class="font-display font-bold text-4xl sm:text-5xl text-white">A</span>
+                            </div>
+
+                            <div class="flex-1 text-center lg:text-left">
+                                <h2 class="font-display font-bold text-2xl sm:text-3xl mb-2">Abbasi TV</h2>
+                                <p class="text-[var(--fg-muted)] mb-4">
+                                    The complete streaming solution with 500+ channels including sports, movies, news, and entertainment.
+                                </p>
+                                <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                    <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">v3.2.1</span>
+                                    <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">12 MB</span>
+                                    <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">Android 5.0+</span>
+                                </div>
+                            </div>
+
+                            <button class="btn-primary px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 flex-shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                                Download APK
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Other Apps Grid -->
+                    <h3 class="font-display font-semibold text-xl mb-6 mt-12">Other Versions</h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- App 1 -->
+                        <div class="card rounded-2xl p-6 text-center">
+                            <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                                <span class="font-display font-bold text-2xl text-white">A</span>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-1">Abbasi TV Lite</h3>
+                            <p class="text-[var(--fg-muted)] text-sm mb-3">Lightweight version for older devices</p>
+                            <div class="flex justify-center gap-2 mb-4">
+                                <span class="text-xs text-[var(--fg-muted)]">v2.8.0</span>
+                                <span class="text-xs text-[var(--fg-muted)]">8 MB</span>
+                            </div>
+                            <button class="btn-secondary w-full py-3 rounded-xl font-medium text-sm">
+                                Download
+                            </button>
+                        </div>
+
+                        <!-- App 2 -->
+                        <div class="card rounded-2xl p-6 text-center">
+                            <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#60a5fa] flex items-center justify-center mx-auto mb-4">
+                                <span class="font-display font-bold text-2xl text-white">A</span>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-1">Abbasi TV Pro</h3>
+                            <p class="text-[var(--fg-muted)] text-sm mb-3">Premium features with ad-free experience</p>
+                            <div class="flex justify-center gap-2 mb-4">
+                                <span class="text-xs text-[var(--fg-muted)]">v3.0.5</span>
+                                <span class="text-xs text-[var(--fg-muted)]">15 MB</span>
+                            </div>
+                            <button class="btn-secondary w-full py-3 rounded-xl font-medium text-sm">
+                                Download
+                            </button>
+                        </div>
+
+                        <!-- App 3 -->
+                        <div class="card rounded-2xl p-6 text-center">
+                            <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+                                <span class="font-display font-bold text-2xl text-white">A</span>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-1">Abbasi TV Sports</h3>
+                            <p class="text-[var(--fg-muted)] text-sm mb-3">Sports-focused streaming edition</p>
+                            <div class="flex justify-center gap-2 mb-4">
+                                <span class="text-xs text-[var(--fg-muted)]">v3.1.0</span>
+                                <span class="text-xs text-[var(--fg-muted)]">10 MB</span>
+                            </div>
+                            <button class="btn-secondary w-full py-3 rounded-xl font-medium text-sm">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Installation Guide -->
+                    <div class="card rounded-2xl p-6 sm:p-8 mt-12">
+                        <h3 class="font-display font-semibold text-xl mb-6 flex items-center gap-2">
+                            <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Installation Guide
+                        </h3>
+                        <ol class="space-y-4 text-[var(--fg-muted)]">
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">1</span>
+                                <span>Download the APK file by clicking the download button above.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">2</span>
+                                <span>Go to Settings > Security and enable "Install from Unknown Sources".</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">3</span>
+                                <span>Open the downloaded APK file and tap "Install".</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">4</span>
+                                <span>Launch Abbasi TV and start streaming!</span>
+                            </li>
+                        </ol>
+                    </div>
+                </main>
+
+                <!-- Downloads Footer -->
+                <footer class="border-t border-[var(--border)] py-8">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <p class="text-[var(--fg-muted)] text-sm mb-2">
+                            &copy; 2025 Abbasi TV. All rights reserved.
+                        </p>
+                        <p class="text-[var(--fg-muted)] text-sm">
+                            created with <span class="text-red-500">&#10084;</span> by WASI
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize variables first
+        let mobileMenu = null;
+        let downloadsPage = null;
+        let mobileMenuBtn = null;
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize DOM elements
+            mobileMenu = document.getElementById('mobileMenu');
+            downloadsPage = document.getElementById('downloadsPage');
+            mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+            // Mobile menu toggle
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Scroll reveal animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal, .stagger').forEach(function(el) {
+                observer.observe(el);
+            });
+
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('#mobileMenu a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // FAQ toggle function
+        function toggleFaq(item) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(function(faqItem) {
+                if (faqItem !== item) {
+                    faqItem.classList.remove('open');
+                }
+            });
+            item.classList.toggle('open');
+        }
+
+        // Downloads page functions
+        function openDownloadsPage() {
+            if (downloadsPage) {
+                downloadsPage.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function closeDownloadsPage() {
+            if (downloadsPage) {
+                downloadsPage.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close downloads page on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && downloadsPage && downloadsPage.classList.contains('active')) {
+                closeDownloadsPage();
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
