@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Abbasi TV - Live Sports & Entertainment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { overflow-x: hidden; width: 100%; position: relative; }
-        .perspective-1000 { perspective: 1000px; max-width: 100%; }
-        .screenshot-container { max-width: 100vw; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        * { max-width: 100%; }
-
         :root {
             --bg-primary: #030a18;
             --bg-secondary: #0a1628;
@@ -22,297 +17,224 @@
             --fg-muted: #8fa3bf;
             --accent: #2563eb;
             --accent-light: #3b82f6;
-            --accent-glow: rgba(37, 99, 235, 0.4);
             --border: rgba(59, 130, 246, 0.2);
-            --success: #10b981;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--fg); }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: var(--bg-primary); 
+            color: var(--fg); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
         .font-display { font-family: 'Space Grotesk', sans-serif; }
 
-        .bg-gradient-animated {
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 30% at 50% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
-                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
-            background-attachment: fixed;
+        /* Horizontal Scroll Gallery */
+        .screenshot-gallery {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 20px 5%; /* Padding ensures first/last items are centered */
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+        }
+        .screenshot-gallery::-webkit-scrollbar { 
+            display: none; /* Chrome/Safari */
         }
 
-        .orb {
-            position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.5;
-            animation: float 20s ease-in-out infinite; pointer-events: none;
+        .phone-mockup {
+            flex: 0 0 85%; /* Mobile takes 85% width */
+            max-width: 300px; /* Cap max width */
+            scroll-snap-align: center;
+            border: 6px solid #1e293b;
+            border-radius: 2rem;
+            background: #000;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
         }
-        .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%); top: 10%; left: -10%; animation-delay: 0s; }
-        .orb-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); top: 60%; right: -5%; animation-delay: -7s; }
-        .orb-3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%); bottom: 10%; left: 30%; animation-delay: -14s; }
 
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(30px, -30px) scale(1.05); } 50% { transform: translate(-20px, 20px) scale(0.95); } 75% { transform: translate(20px, 30px) scale(1.02); } }
+        /* Make images fit perfectly inside mockups */
+        .phone-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-        .grid-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%); pointer-events: none; }
+        /* FAQ Dropdown Logic */
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-button { 
+            width: 100%; 
+            text-align: left; 
+            padding: 1.25rem 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer;
+        }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); color: var(--fg-muted); line-height: 1.6; }
+        .faq-item.active .faq-content { max-height: 200px; padding-bottom: 1.5rem; transition: max-height 0.4s ease-in-out; }
+        .faq-item.active svg { transform: rotate(180deg); }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            box-shadow: 0 4px 20px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-            display: inline-block; /* Added for anchor tags */
-            text-decoration: none; /* Added for anchor tags */
+            transition: all 0.3s ease;
         }
-        .btn-primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%); transform: translateX(-100%); transition: transform 0.5s; }
-        .btn-primary:hover::before { transform: translateX(100%); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.2); }
-        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); }
 
-        .btn-secondary { background: var(--bg-card); border: 1px solid var(--border); backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        .btn-secondary:hover { border-color: var(--accent-light); background: rgba(37, 99, 235, 0.1); }
+        .info-table { width: 100%; border-collapse: collapse; }
+        .info-table td { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .info-table td:last-child { text-align: right; color: var(--accent-light); font-weight: bold; }
 
-        .card { background: var(--bg-card); border: 1px solid var(--border); backdrop-filter: blur(20px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(37, 99, 235, 0.1); }
-
-        .phone-mockup { background: linear-gradient(145deg, #1a2744 0%, #0d1a30 100%); border: 3px solid #2a3a55; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .phone-mockup:hover { transform: rotateY(-5deg) rotateX(5deg) scale(1.02); }
-
-        .dropdown-content { opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; }
-        .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
-
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .stagger > * { opacity: 0; transform: translateY(30px); }
-        .stagger.active > *:nth-child(1) { animation: fadeUp 0.6s 0.1s forwards; }
-        .stagger.active > *:nth-child(2) { animation: fadeUp 0.6s 0.2s forwards; }
-        .stagger.active > *:nth-child(3) { animation: fadeUp 0.6s 0.3s forwards; }
-        .stagger.active > *:nth-child(4) { animation: fadeUp 0.6s 0.4s forwards; }
-
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-        .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
-        .faq-item.open .faq-answer { max-height: 300px; }
-        .faq-icon { transition: transform 0.3s ease; }
-        .faq-item.open .faq-icon { transform: rotate(180deg); }
-
-        .android-badge { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
-
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
-        *:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
-
-        .screenshot-container { display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-        .screenshot-container::-webkit-scrollbar { height: 6px; }
-        .screenshot-item { flex-shrink: 0; scroll-snap-align: center; transition: transform 0.3s ease; }
-        .screenshot-item:hover { transform: scale(1.03); }
+        
+        /* Utility for smooth scrolling */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-gradient-animated min-h-screen">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="grid-pattern"></div>
+<body class="min-h-screen flex flex-col">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(3,10,24,0.8)] border-b border-[rgba(59,130,246,0.1)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="#" class="flex items-center gap-3">
-                    <img src="https://i.supaimg.com/59ee8bbc-f91d-4e65-b975-5775bf2dc405/38807a3f-6b44-4053-84d6-4ac9bde1177e.jpg" alt="Logo" class="h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-cover shadow-lg">
-                    <span class="font-display font-bold text-xl sm:text-2xl tracking-tight">ABBASI TV</span>
-                </a>
-
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#features" class="text-[var(--fg-muted)] hover:text-white transition-colors">Features</a>
-                    <div class="dropdown relative">
-                        <button class="flex items-center gap-1 text-[var(--fg-muted)] hover:text-white transition-colors">
-                            Categories
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="dropdown-content absolute top-full left-0 mt-2 w-48 rounded-xl card p-2">
-                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Sports</a>
-                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">Movies</a>
-                            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)] transition-colors">News</a>
-                        </div>
-                    </div>
-                    <a href="#faq" class="text-[var(--fg-muted)] hover:text-white transition-colors">FAQ</a>
-                    
-                    <!-- Updated Link to open new tab -->
-                    <a href="download.html" target="_blank" class="btn-primary px-6 py-2.5 rounded-xl font-semibold text-white">
-                        Download
-                    </a>
-                </div>
-
-                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-[rgba(59,130,246,0.1)]" aria-label="Toggle menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-[rgba(3,10,24,0.8)] border-b border-[var(--border)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://i.supaimg.com/59ee8bbc-f91d-4e65-b975-5775bf2dc405/38807a3f-6b44-4053-84d6-4ac9bde1177e.jpg" alt="Logo" class="h-8 w-8 rounded-lg shadow-lg">
+                <span class="font-display font-bold text-lg tracking-wide">ABBASI TV</span>
             </div>
-        </div>
-
-        <div id="mobileMenu" class="md:hidden hidden bg-[var(--bg-secondary)] border-t border-[var(--border)]">
-            <div class="px-4 py-4 space-y-3">
-                <a href="#features" class="block py-2 text-[var(--fg-muted)] hover:text-white">Features</a>
-                <a href="#faq" class="block py-2 text-[var(--fg-muted)] hover:text-white">FAQ</a>
-                <!-- Updated Link for mobile -->
-                <a href="download.html" target="_blank" class="block w-full btn-primary px-6 py-3 rounded-xl font-semibold text-white text-center mt-4">
-                    Download App
-                </a>
-            </div>
+            <a href="download.html" target="_blank" class="btn-primary px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg">
+                Download
+            </a>
         </div>
     </nav>
 
-    <main>
+    <main class="flex-grow pt-24 pb-10">
+        
         <!-- Hero Section -->
-        <section class="relative min-h-screen flex items-center pt-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div class="stagger text-center lg:text-left order-2 lg:order-1">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.3)] mb-6">
-                            <span class="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse"></span>
-                            <span class="text-[var(--success)] text-sm font-medium">Android Only</span>
-                        </div>
-                        
-                        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6">
-                            Live Sports &
-                            <span class="block bg-gradient-to-r from-[#3b82f6] to-[#60a5fa] bg-clip-text text-transparent">Entertainment</span>
-                        </h1>
-                        
-                        <p class="text-[var(--fg-muted)] text-lg sm:text-xl mb-8 max-w-xl mx-auto lg:mx-0">
-                            Stream live cricket, football, boxing, and 500+ channels. Your gateway to unlimited entertainment.
-                        </p>
-                        
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <!-- Updated Button -->
-                            <a href="download.html" target="_blank" class="btn-primary px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                Download Now
-                                <span class="text-sm opacity-75">v19.0</span>
-                            </a>
-                            
-                            <a href="#features" class="btn-secondary px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-2">
-                                Learn More
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="order-1 lg:order-2 flex justify-center">
-                        <div class="relative">
-                            <div class="absolute inset-0 bg-[var(--accent)] rounded-[3rem] blur-3xl opacity-20 scale-90"></div>
-                            <div class="phone-mockup relative w-[280px] sm:w-[320px] rounded-[2.5rem] p-2 transform perspective-1000">
-                                <div class="bg-[#0a1628] rounded-[2rem] overflow-hidden">
-                                    <div class="bg-[#030a18] px-4 py-2 flex justify-between items-center text-xs text-[var(--fg-muted)]">
-                                        <span>11:48 AM</span>
-                                    </div>
-                                    <img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="App Interface" class="w-full h-auto">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+            
+            <!-- Text Content -->
+            <div class="reveal order-2 lg:order-1 text-center lg:text-left">
+                <div class="inline-block mb-6">
+                    <img src="https://i.supaimg.com/59ee8bbc-f91d-4e65-b975-5775bf2dc405/38807a3f-6b44-4053-84d6-4ac9bde1177e.jpg" alt="Logo" class="w-24 h-24 rounded-2xl shadow-2xl border-2 border-blue-600 mx-auto lg:mx-0">
                 </div>
+                
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                    Live Sports in <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Your Pocket.</span>
+                </h1>
+                
+                <p class="text-[var(--fg-muted)] text-base sm:text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0">
+                    The ultimate destination for Cricket, Soccer, and 500+ Premium channels. No subscription required.
+                </p>
+                
+                <div class="bg-[var(--bg-secondary)] p-6 rounded-3xl border border-[var(--border)] mb-8 inline-block w-full max-w-sm mx-auto lg:mx-0 shadow-xl">
+                    <table class="info-table text-sm sm:text-base">
+                        <tr><td>App Name</td><td>Abbasi TV</td></tr>
+                        <tr><td>Latest Version</td><td>19.0</td></tr>
+                        <tr><td>Total Downloads</td><td>5000+</td></tr>
+                    </table>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="download.html" target="_blank" class="btn-primary inline-flex justify-center items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg w-full sm:w-auto shadow-lg shadow-blue-900/50">
+                        Download APK
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Content (Gallery) -->
+            <div class="reveal order-1 lg:order-2 w-full" style="transition-delay: 0.2s;">
+                <div class="screenshot-gallery">
+                    <div class="phone-mockup aspect-[9/19]"><img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="S1"></div>
+                    <div class="phone-mockup aspect-[9/19]"><img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="S2"></div>
+                    <div class="phone-mockup aspect-[9/19]"><img src="https://z-cdn-media.chatglm.cn/files/18b1da86-3aa2-4d1b-8f02-fb47e2b762b8.png?auth_key=1871669223-a921b2da3be042698973fc2dd2c0245c-0-dbc2230a7b3027ae0ad456db95225189" alt="S3"></div>
+                </div>
+                <p class="text-center text-[var(--fg-muted)] text-xs mt-4 animate-pulse">← Swipe to explore →</p>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="relative py-20 sm:py-32">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 reveal">
-                    <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">Why Choose Abbasi TV?</h2>
-                    <p class="text-[var(--fg-muted)] text-lg max-w-2xl mx-auto">Experience premium streaming with features designed for the ultimate viewing experience.</p>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-12 text-center">Available Sports</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="group bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border)] text-center hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🏏</div>
+                    <h3 class="font-bold text-xl mb-3">Live Cricket</h3>
+                    <p class="text-[var(--fg-muted)] text-sm leading-relaxed">IPL, PSL, World Cup, and all international matches in HD quality.</p>
                 </div>
-
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
-                    <div class="card rounded-2xl p-6 text-center">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-lg mb-2">Live Streaming</h3>
-                        <p class="text-[var(--fg-muted)] text-sm">Watch live sports events in HD quality without buffering.</p>
-                    </div>
-
-                    <div class="card rounded-2xl p-6 text-center">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-lg mb-2">500+ Channels</h3>
-                        <p class="text-[var(--fg-muted)] text-sm">Access to sports, movies, news, and entertainment channels.</p>
-                    </div>
-
-                    <div class="card rounded-2xl p-6 text-center">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-lg mb-2">Fast & Light</h3>
-                        <p class="text-[var(--fg-muted)] text-sm">Optimized for smooth performance on all Android devices.</p>
-                    </div>
-
-                    <div class="card rounded-2xl p-6 text-center">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-lg mb-2">Free Forever</h3>
-                        <p class="text-[var(--fg-muted)] text-sm">No subscription fees. Completely free to use forever.</p>
-                    </div>
+                <!-- Card 2 -->
+                <div class="group bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border)] text-center hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚽</div>
+                    <h3 class="font-bold text-xl mb-3">Live Soccer</h3>
+                    <p class="text-[var(--fg-muted)] text-sm leading-relaxed">Premier League, La Liga, Champions League, and more.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="group bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border)] text-center hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📺</div>
+                    <h3 class="font-bold text-xl mb-3">500+ Others</h3>
+                    <p class="text-[var(--fg-muted)] text-sm leading-relaxed">Movies, News, Wrestling, and Kids channels available 24/7.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Download CTA Section -->
-        <section class="relative py-20 sm:py-32">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden reveal">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[rgba(37,99,235,0.2)] to-transparent"></div>
-                    <div class="relative">
-                        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">Ready to Start Streaming?</h2>
-                        <p class="text-[var(--fg-muted)] text-lg mb-8 max-w-xl mx-auto">Download Abbasi TV now and unlock unlimited entertainment.</p>
-                        
-                        <!-- Updated Button -->
-                        <a href="download.html" target="_blank" class="btn-primary px-10 py-5 rounded-2xl font-bold text-xl inline-flex items-center gap-3">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            Download for Android
-                        </a>
-                        <p class="text-[var(--fg-muted)] text-sm mt-4">Version 19.0 | APK Size: 12 MB | Android 5.0+</p>
-                    </div>
+        <!-- FAQ Section -->
+        <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="font-display text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="faq-item">
+                    <button class="faq-button font-semibold hover:text-blue-400 transition-colors" onclick="toggleFaq(this)">
+                        Is Abbasi TV free to use?
+                        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-content">Yes, the app is 100% free. We do not require any subscription or registration to watch live sports.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-button font-semibold hover:text-blue-400 transition-colors" onclick="toggleFaq(this)">
+                        Does it support Android TV?
+                        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-content">Yes! Abbasi TV is optimized for both Android Mobile and Android Smart TVs/Firesticks.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-button font-semibold hover:text-blue-400 transition-colors" onclick="toggleFaq(this)">
+                        What to do if a link is not working?
+                        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-content">We update links daily. If one fails, try an alternative server link provided within the channel list.</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="relative py-12 border-t border-[var(--border)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-[var(--fg-muted)] text-sm mb-2">&copy; 2026 Abbasi TV. All rights reserved.</p>
-            <p class="text-[var(--fg-muted)] text-sm">created with <span class="text-red-500">&#10084;</span> by WASI</p>
+    <footer class="py-8 border-t border-[var(--border)] text-center text-[var(--fg-muted)] text-sm bg-[var(--bg-secondary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <p>&copy; 2026 Abbasi TV • All Rights Reserved</p>
+            <p>Crafted with ❤ by <a href ="//wa.me/923159493554">WASI</a></p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
+        // Reveal animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
-        });
-
-        function toggleFaq(item) {
-            const allItems = document.querySelectorAll('.faq-item');
-            allItems.forEach(i => { if (i !== item) i.classList.remove('open'); });
-            item.classList.toggle('open');
+        // FAQ Toggle
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            // Optional: Close other items when opening one
+            // document.querySelectorAll('.faq-item').forEach(i => {
+            //     if(i !== item) i.classList.remove('active');
+            // });
+            item.classList.toggle('active');
         }
     </script>
 </body>
 </html>
+
