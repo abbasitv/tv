@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Abbasi TV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #030a18;
+            --bg-secondary: #0a1628;
+            --bg-card: rgba(15, 30, 55, 0.8);
+            --fg: #ffffff;
+            --fg-muted: #8fa3bf;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-glow: rgba(37, 99, 235, 0.4);
+            --border: rgba(59, 130, 246, 0.2);
+            --success: #10b981;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--fg); }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+
+        .bg-gradient-animated {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .orb { position: fixed; border-radius: 50%; filter: blur(60px); opacity: 0.5; pointer-events: none; z-index: 0; }
+        .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%); top: 10%; left: -10%; }
+        .orb-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); bottom: 10%; right: -5%; }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-secondary:hover { border-color: var(--accent-light); background: rgba(37, 99, 235, 0.1); }
+
+        .card { background: var(--bg-card); border: 1px solid var(--border); backdrop-filter: blur(20px); transition: all 0.4s ease; }
+        .card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+
+        .source-card { transition: all 0.3s ease; }
+        .source-card:hover { transform: translateX(5px); }
+    </style>
+</head>
+<body class="bg-gradient-animated">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 backdrop-blur-xl bg-[rgba(3,10,24,0.9)] border-b border-[var(--border)] z-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.supaimg.com/59ee8bbc-f91d-4e65-b975-5775bf2dc405/38807a3f-6b44-4053-84d6-4ac9bde1177e.jpg" alt="Logo" class="h-10 w-10 rounded-xl object-cover shadow-lg">
+                    <span class="font-display font-bold text-xl">ABBASI TV</span>
+                </div>
+                <a href="index.html" class="text-[var(--fg-muted)] hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(16,185,129,0.15)] border border-[rgba(16,185,129,0.3)] mb-6">
+                <svg class="w-5 h-5 text-[var(--success)]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 2.427l1.562-1.562a.5.5 0 00-.707-.707L16.58 1.957a7.956 7.956 0 00-4.58-1.453c-1.68 0-3.25.518-4.58 1.453L5.623.158a.5.5 0 00-.707.707L6.478 2.427A7.948 7.948 0 004 8.5h16a7.948 7.948 0 00-2.477-6.073zM8.5 6a1 1 0 110-2 1 1 0 010 2zm7 0a1 1 0 110-2 1 1 0 010 2zM4 9.5v9A2.5 2.5 0 006.5 21h2v-5.5a.5.5 0 01.5-.5h6a.5.5 0 01.5.5V21h2a2.5 2.5 0 002.5-2.5v-9H4z"/></svg>
+                <span class="text-[var(--success)] text-sm font-semibold">Android Only</span>
+            </div>
+            <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">Download Sources</h1>
+            <p class="text-[var(--fg-muted)] text-lg max-w-2xl mx-auto">Choose your preferred download source below. All links provide the same application.</p>
+        </div>
+
+        <!-- Main App Info -->
+        <div class="card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-[var(--success)] text-white text-xs font-bold px-4 py-1 rounded-bl-xl">LATEST VERSION</div>
+            <div class="flex flex-col lg:flex-row items-center gap-8">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+                    <span class="font-display font-bold text-4xl sm:text-5xl text-white">A</span>
+                </div>
+                <div class="flex-1 text-center lg:text-left">
+                    <h2 class="font-display font-bold text-2xl sm:text-3xl mb-2">Abbasi TV v19.0</h2>
+                    <p class="text-[var(--fg-muted)] mb-4">The complete streaming solution with 500+ channels.</p>
+                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                        <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">APK File</span>
+                        <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">12 MB</span>
+                        <span class="px-3 py-1 rounded-full bg-[rgba(59,130,246,0.1)] border border-[var(--border)] text-sm">Android 5.0+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Sources List -->
+        <h3 class="font-display font-semibold text-xl mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+            Available Download Sources
+        </h3>
+
+        <div class="space-y-4">
+            <!-- Source 1 -->
+            <div class="source-card card rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-[rgba(59,130,246,0.1)] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">Google Drive</h4>
+                        <p class="text-[var(--fg-muted)] text-sm">Fast & Reliable - Recommended</p>
+                    </div>
+                </div>
+                <a href="#" class="btn-primary px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap flex items-center gap-2 w-full sm:w-auto justify-center text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download
+                </a>
+            </div>
+
+            <!-- Source 2 -->
+            <div class="source-card card rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-[rgba(59,130,246,0.1)] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">MediaFire</h4>
+                        <p class="text-[var(--fg-muted)] text-sm">Alternative Mirror</p>
+                    </div>
+                </div>
+                <a href="#" class="btn-secondary px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap flex items-center gap-2 w-full sm:w-auto justify-center text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download
+                </a>
+            </div>
+
+            <!-- Source 3 -->
+            <div class="source-card card rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-[rgba(59,130,246,0.1)] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">Direct Server</h4>
+                        <p class="text-[var(--fg-muted)] text-sm">Direct Download Link</p>
+                    </div>
+                </div>
+                <a href="#" class="btn-secondary px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap flex items-center gap-2 w-full sm:w-auto justify-center text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download
+                </a>
+            </div>
+
+            <!-- Source 4 -->
+            <div class="source-card card rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-[rgba(59,130,246,0.1)] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">Mega.nz</h4>
+                        <p class="text-[var(--fg-muted)] text-sm">Secure Cloud Storage</p>
+                    </div>
+                </div>
+                <a href="#" class="btn-secondary px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap flex items-center gap-2 w-full sm:w-auto justify-center text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download
+                </a>
+            </div>
+        </div>
+
+        <!-- Installation Guide -->
+        <div class="card rounded-2xl p-6 sm:p-8 mt-12">
+            <h3 class="font-display font-semibold text-xl mb-6 flex items-center gap-2">
+                <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Installation Guide
+            </h3>
+            <ol class="space-y-4 text-[var(--fg-muted)]">
+                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">1</span><span>Download the APK file from any source above.</span></li>
+                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">2</span><span>Go to Settings > Security and enable "Install from Unknown Sources".</span></li>
+                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">3</span><span>Open the downloaded APK file and tap "Install".</span></li>
+                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">4</span><span>Launch Abbasi TV and start streaming!</span></li>
+            </ol>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-[var(--border)] py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-[var(--fg-muted)] text-sm">&copy; 2026 Abbasi TV. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
